@@ -54,8 +54,12 @@ jobs:
             -Dsonar.junit.reportsPath=target/surefire-reports/ \
             -Dsonar.java.checkstyle.reportsPaths=target/checkstyle-result.xml
       
-      - name: Wait for Quality Gate
-        uses: sonarsource/sonarcloud-github-action@v2.1.0
-        with:
-          projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
-          token: ${{ secrets.SONAR_TOKEN }}
+  
+       - name: SonarQube Quality Gate check
+         id: sonarqube-quality-gate-check
+         uses: sonarsource/sonarqube-quality-gate-action@master
+        # Force to fail step after specific time.
+         timeout-minutes: 5
+         env:
+           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+           SONAR_URL: ${{ secrets.SONAR_URL }}
