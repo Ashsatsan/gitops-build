@@ -121,3 +121,9 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+# Default values for projcharts.
+# Add your custom values here
+
+appimage: "{{ .Values.REGISTRY }}/{{ .Values.ECR_REPO_NAME }}"
+apptag: "{{ .Values.EKS_CLUSTER }}"
