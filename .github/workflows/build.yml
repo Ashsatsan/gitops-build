@@ -18,33 +18,16 @@ env:
   REGION: us-east-2 
 
 jobs:
-  build:
+  Testing:
     name: "Build and test the source code"
     runs-on: ubuntu-latest  # Corrected to use the latest Ubuntu image
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
-      - name: Set up JDK 11
-        uses: guillonapa/action-maven-cli/jdk11@master
-
-      - name: Clear Maven repository cache
-        run: rm -rf $HOME/.m2/repository
-        
-      - name: Cache Maven dependencies
-        uses: actions/cache@v3
-        with: 
-          path: $HOME/.m2/repository  # Ensure using $HOME explicitly
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-    
       - name: Build with Maven
-        run: mvn clean install
- 
-      - name: Run tests with Maven
-        run: mvn test 
+        run: mvn test
 
       - name: Run Checkstyle
         run: mvn checkstyle:checkstyle 
