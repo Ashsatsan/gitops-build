@@ -52,3 +52,10 @@ jobs:
             -Dsonar.jacoco.reportsPath=target/jacoco.exec
             -Dsonar.junit.reportsPath=target/surefire-reports/
             -Dsonar.java.checkstyle.reportsPaths=target/checkstyle-result.xml
+
+   
+       - name: Wait for Quality Gate
+         uses: sonarsource/sonarcloud-github-action@v2.1.0
+         with:
+           projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
+           token: ${{ secrets.SONAR_TOKEN }}
