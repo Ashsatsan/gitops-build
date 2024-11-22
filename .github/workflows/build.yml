@@ -106,5 +106,8 @@ jobs:
           cluster-name: ${{ env.EKS_CLUSTER }}
           chart-path: helm/projcharts
           namespace: deFault
-          values: appimage=${{ secrets.REGISTRY }}/{{ secrets.ECR_REPO_NAME }}, apptag=${{secrets.EKS_CLUSTER}}
+          values: |
+              appimage: ${{ secrets.REGISTRY }}/${{ secrets.ECR_REPO_NAME }}
+              apptag: ${{ secrets.EKS_CLUSTER }}
+
           name: project1-stack
