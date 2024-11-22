@@ -15,7 +15,7 @@ env:
   SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   EKS_CLUSTER: project1
-  REGION: us-east-2 
+  REGION: us-east-2
 
 jobs:
   Testing:
@@ -31,7 +31,6 @@ jobs:
 
       - name: Run Checkstyle
         run: mvn checkstyle:checkstyle 
-  
       
       - name: Java 11
         uses: actions/setup-java@v3
@@ -39,7 +38,7 @@ jobs:
           distribution: 'temurin' 
           java-version: '11'
 
-       - name: Analyze with SonarCloud
+      - name: Analyze with SonarCloud
         uses: sonarsource/sonarcloud-github-action@v2.1.0
         with:
           args: >
@@ -51,4 +50,4 @@ jobs:
             -Dsonar.java.binaries=target/classes
             -Dsonar.java.test.binaries=target/test-classes
             -Dsonar.junit.reportsPath=target/test-classes/TEST-*.xml
-            -Dsonar.verbose=true         
+            -Dsonar.verbose=true
