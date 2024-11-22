@@ -9,8 +9,8 @@ on:
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE }}
   REGISTRY: ${{ secrets.REGISTRY }}
+  SONAR_URL: ${{secrets.SONAR_URL}}
   SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
   SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -38,16 +38,19 @@ jobs:
           distribution: 'temurin' 
           java-version: '11'
 
+      - name: Setup SonarQube
+        uses: warchant/setup-sonar-scanner@v7
+
       - name: Analyze with SonarCloud
-        uses: sonarsource/sonarcloud-github-action@v2.1.0
-        with:
-          args: >
+        run: sonar-scanner
+            -Dsonar.host.url=${{secrets.SONAR_URL}}
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-            -Dsonar.sources=src/main/java
+            -Dsonar.sources=src/
             -Dsonar.tests=src/test/java
-            -Dsonar.java.binaries=target/classes
-            -Dsonar.java.test.binaries=target/test-classes
-            -Dsonar.junit.reportsPath=target/test-classes/TEST-*.xml
+            -Dsonar.java.binaries=target/classes/com/visualpathit/account
+            -Dsonar.jacoco.reportsPath=target/jacoco.exec
+            -Dsonar.junit.reportsPath=target/surefire-reports/
+            -Dsonar.java.checkstyle.reportsPaths=target/checksylte-result.xml
             -Dsonar.verbose=true
