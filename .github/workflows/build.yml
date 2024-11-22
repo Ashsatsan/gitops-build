@@ -48,9 +48,7 @@ jobs:
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
             -Dsonar.sources=src/
-            -Dsonar.tests=src/test/java
             -Dsonar.java.binaries=target/classes/com/visualpathit/account
             -Dsonar.jacoco.reportsPath=target/jacoco.exec
             -Dsonar.junit.reportsPath=target/surefire-reports/
-            -Dsonar.java.checkstyle.reportsPaths=target/checksylte-result.xml
-            -Dsonar.verbose=true
+            -Dsonar.java.checkstyle.reportsPaths=target/checkstyle-result.xml
