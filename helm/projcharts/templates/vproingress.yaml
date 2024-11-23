@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: eksproject1.ashsatsan.site
+  - host: eksproject1.satsan.site
     http:
       paths:
       - path: /
