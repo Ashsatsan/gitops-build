@@ -126,4 +126,4 @@ affinity: {}
 # Add your custom values here
 
 appimage: "{{ .Values.REGISTRY }}/{{ .Values.ECR_REPO_NAME }}"
-apptag: "{{ .Values.EKS_CLUSTER }}"
+apptag: "{{ .Values.IMAGE_TAG }}"
